@@ -195,7 +195,7 @@
 }
 
 .text-mandy {
-  color: $color-mandy;
+  color: $color-mandy !important;
 }
 
 .text-azure {
@@ -494,7 +494,7 @@ div.arrow:before {
     overflow-y: auto;
     overflow-x: hidden;
   }
- 
+
 }
 
 @media (max-width: 768px){

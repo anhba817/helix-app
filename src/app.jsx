@@ -1,15 +1,13 @@
-import React from 'react';
-import {
-  Route, BrowserRouter as Router, Switch,
-} from 'react-router-dom';
+import React from "react";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
-import Header from './app/core/header/header';
-import Sidenav from './app/core/sidenav/sidenav';
-import predictiveMintenance from './app/predictiveMaintenance/predictiveMaintenance';
-import './app.scss';
+import Header from "./app/core/header/header";
+import Sidenav from "./app/core/sidenav/sidenav";
+import predictiveMintenance from "./app/predictiveMaintenance/predictiveMaintenance";
+import Dashboards from "./app/dashboards";
+import "./app.scss";
 
 const App = () => {
-
   return (
     <div>
       <div>
@@ -22,7 +20,7 @@ const App = () => {
             <div className="main-content">
               <Switch>
                 <Route exact path="/" component={predictiveMintenance} />
-
+                <Route exact path="/dashboards" component={Dashboards} />
               </Switch>
             </div>
           </div>

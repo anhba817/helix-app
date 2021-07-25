@@ -9,6 +9,10 @@ import { render } from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import App from './app';
 import './index.scss';
+import 'antd/dist/antd.css';
+
+// mocking api
+import './app/util/axios/fakeApi/index'
 
 // Import media
 require.context('./app/images', true);

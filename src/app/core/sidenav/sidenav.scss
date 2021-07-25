@@ -13,17 +13,18 @@
     height: 55px;
     width: 55px;
     background-color: #4e5664;
-    position: relative;
+    // position: relative;
     display:flex;
     justify-content:center;
     align-items:center;
+    color: #3a4354;
 }
 
-.highlight { 
+.highlight {
     background: white;
     width: 55px;
     height: 55px;
-    position: relative;
+    // position: relative;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -32,4 +33,8 @@
 
 .white-border{
     border-color: $color-storm-grey;
+}
+
+.border-top-2px {
+    border-top-width: 2px !important;
 }
