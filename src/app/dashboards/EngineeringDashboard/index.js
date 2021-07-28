@@ -38,13 +38,13 @@ const EngineeringDashboard = ({ activeIndex, setActiveIndex }) => {
         <Row sm="12">
           <Col className="m-2">
             <Row className="d-flex justify-content-between align-items-center">
-              <h3 className="text-mandy font-weight-bold">
+              <h2 className="text-mandy font-weight-bold">
                 <i
                   className="fa fa-cogs fa-2x mr-2"
                   style={{ color: "#3a4354" }}
                 />
                 Engineering Dashboard
-              </h3>
+              </h2>
               <div>
                 <Button
                   className="border-0"
