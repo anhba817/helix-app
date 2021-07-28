@@ -1,785 +1,114 @@
 import mock from "../mock";
-
-const data = {
-  "power-consumtions": [
-    {
-      timestamp: "7/14/21 5:00",
-      equipment: "Chiller #1",
-      category: "Chillers",
-      space_or_floor: "WMB#01",
-      status: "Breakdown",
-      action: "W0/02/24",
-    },
-    {
-      timestamp: "7/15/21 5:00",
-      equipment: "Chiller #2",
-      category: "Chillers",
-      space_or_floor: "WMB#01",
-      status: "Maintenance",
-      action: "W0/02/25",
-    },
-    {
-      timestamp: "7/16/21 5:00",
-      equipment: "Chiller #3",
-      category: "Chillers",
-      space_or_floor: "WMB#01",
-      status: "Scrapped",
-      action: "W0/02/26",
-    },
-    {
-      timestamp: "7/17/21 5:00",
-      equipment: "Chiller #4",
-      category: "Chillers",
-      space_or_floor: "WMB#01",
-      status: "Working",
-      action: "W0/02/27",
-    },
-    {
-      timestamp: "7/18/21 5:00",
-      equipment: "Chiller #5",
-      category: "Chillers",
-      space_or_floor: "WMB#01",
-      status: "Breakdown",
-      action: "W0/02/28",
-    },
-    {
-      timestamp: "7/19/21 5:00",
-      equipment: "Chiller #6",
-      category: "Chillers",
-      space_or_floor: "WMB#01",
-      status: "Maintenance",
-      action: "W0/02/29",
-    },
-    {
-      timestamp: "7/20/21 5:00",
-      equipment: "Chiller #7",
-      category: "Chillers",
-      space_or_floor: "WMB#02",
-      status: "Scrapped",
-      action: "W0/02/30",
-    },
-    {
-      timestamp: "7/21/21 5:00",
-      equipment: "Chiller #8",
-      category: "Chillers",
-      space_or_floor: "WMB#02",
-      status: "Working",
-      action: "W0/02/31",
-    },
-    {
-      timestamp: "7/22/21 5:00",
-      equipment: "Chiller #9",
-      category: "Chillers",
-      space_or_floor: "WMB#02",
-      status: "Breakdown",
-      action: "W0/02/32",
-    },
-    {
-      timestamp: "7/23/21 5:00",
-      equipment: "Chiller #10",
-      category: "Chillers",
-      space_or_floor: "WMB#02",
-      status: "Maintenance",
-      action: "W0/02/33",
-    },
-    {
-      timestamp: "7/24/21 5:00",
-      equipment: "Chiller #11",
-      category: "Chillers",
-      space_or_floor: "WMB#02",
-      status: "Scrapped",
-      action: "W0/02/34",
-    },
-    {
-      timestamp: "7/25/21 5:00",
-      equipment: "Chiller #12",
-      category: "Chillers",
-      space_or_floor: "WMB#03",
-      status: "Working",
-      action: "W0/02/35",
-    },
-    {
-      timestamp: "7/26/21 5:00",
-      equipment: "Condenser Pump",
-      category: "Electrical",
-      space_or_floor: "WMB#03",
-      status: "Breakdown",
-      action: "W0/02/36",
-    },
-    {
-      timestamp: "7/27/21 5:00",
-      equipment: "CNC #1",
-      category: "Mechanical",
-      space_or_floor: "WMB#03",
-      status: "Maintenance",
-      action: "W0/02/37",
-    },
-    {
-      timestamp: "7/28/21 5:00",
-      equipment: "CNC #2",
-      category: "Mechanical",
-      space_or_floor: "WMB#03",
-      status: "Scrapped",
-      action: "W0/02/38",
-    },
-    {
-      timestamp: "7/29/21 5:00",
-      equipment: "CNC #3",
-      category: "Mechanical",
-      space_or_floor: "WMB#03",
-      status: "Working",
-      action: "W0/02/39",
-    },
-    {
-      timestamp: "7/30/21 5:00",
-      equipment: "CNC #4",
-      category: "Mechanical",
-      space_or_floor: "WMB#03",
-      status: "Breakdown",
-      action: "W0/02/40",
-    },
-    {
-      timestamp: "7/31/21 5:00",
-      equipment: "Fins Machine",
-      category: "Mechanical",
-      space_or_floor: "WMB#03",
-      status: "Maintenance",
-      action: "W0/02/41",
-    },
-    {
-      timestamp: "8/1/21 5:00",
-      equipment: "Springs Machine",
-      category: "Mechanical",
-      space_or_floor: "WMB#03",
-      status: "Scrapped",
-      action: "W0/02/42",
-    },
-  ],
-  powers: [
-    {
-      month: "Jan",
-      consumption: 439,
-    },
-    {
-      month: "Feb",
-      consumption: 434,
-    },
-    {
-      month: "Mar",
-      consumption: 381,
-    },
-    {
-      month: "Apr",
-      consumption: 332,
-    },
-    {
-      month: "May",
-      consumption: 232,
-    },
-    {
-      month: "Jun",
-      consumption: 498,
-    },
-    {
-      month: "Jul",
-      consumption: 381,
-    },
-    {
-      month: "Aug",
-      consumption: 488,
-    },
-    {
-      month: "Sep",
-      consumption: 256,
-    },
-    {
-      month: "Oct",
-      consumption: 469,
-    },
-    {
-      month: "Nov",
-      consumption: 392,
-    },
-    {
-      month: "Dec",
-      consumption: 353,
-    },
-  ],
-  "air-quality": [
-    {
-      id: 1,
-      timestamp: "7/14/21 5:00",
-      space_or_floor: "WMB#01",
-      device: "Elevator Lobby",
-      temperature: 31,
-      humidity: 20,
-      h25: 297,
-      co2: 518,
-      luminance: 3,
-    },
-    {
-      id: 2,
-      timestamp: "7/15/21 5:00",
-      space_or_floor: "WMB#01",
-      device: "Trash Room",
-      temperature: 34,
-      humidity: 25,
-      h25: 255,
-      co2: 585,
-      luminance: 4,
-    },
-    {
-      id: 3,
-      timestamp: "7/16/21 5:00",
-      space_or_floor: "WMB#01",
-      device: "Bathrooms",
-      temperature: 31,
-      humidity: 26,
-      h25: 233,
-      co2: 595,
-      luminance: 4,
-    },
-    {
-      id: 4,
-      timestamp: "7/17/21 5:00",
-      space_or_floor: "WMB#01",
-      device: "Offices",
-      temperature: 29,
-      humidity: 27,
-      h25: 286,
-      co2: 503,
-      luminance: 5,
-    },
-    {
-      id: 5,
-      timestamp: "7/18/21 5:00",
-      space_or_floor: "WMB#01",
-      device: "Elevator Lobby",
-      temperature: 30,
-      humidity: 23,
-      h25: 208,
-      co2: 596,
-      luminance: 1,
-    },
-    {
-      id: 6,
-      timestamp: "7/19/21 5:00",
-      space_or_floor: "WMB#01",
-      device: "Trash Room",
-      temperature: 33,
-      humidity: 23,
-      h25: 265,
-      co2: 522,
-      luminance: 9,
-    },
-    {
-      id: 7,
-      timestamp: "7/20/21 5:00",
-      space_or_floor: "WMB#02",
-      device: "Bathrooms",
-      temperature: 28,
-      humidity: 25,
-      h25: 244,
-      co2: 587,
-      luminance: 7,
-    },
-    {
-      id: 8,
-      timestamp: "7/21/21 5:00",
-      space_or_floor: "WMB#02",
-      device: "Offices",
-      temperature: 26,
-      humidity: 29,
-      h25: 247,
-      co2: 538,
-      luminance: 7,
-    },
-    {
-      id: 9,
-      timestamp: "7/22/21 5:00",
-      space_or_floor: "WMB#02",
-      device: "Elevator Lobby",
-      temperature: 35,
-      humidity: 22,
-      h25: 205,
-      co2: 528,
-      luminance: 5,
-    },
-    {
-      id: 10,
-      timestamp: "7/23/21 5:00",
-      space_or_floor: "WMB#02",
-      device: "Trash Room",
-      temperature: 34,
-      humidity: 29,
-      h25: 280,
-      co2: 520,
-      luminance: 3,
-    },
-    {
-      id: 11,
-      timestamp: "7/24/21 5:00",
-      space_or_floor: "WMB#02",
-      device: "Bathrooms",
-      temperature: 35,
-      humidity: 23,
-      h25: 216,
-      co2: 592,
-      luminance: 8,
-    },
-    {
-      id: 12,
-      timestamp: "7/25/21 5:00",
-      space_or_floor: "WMB#03",
-      device: "Offices",
-      temperature: 25,
-      humidity: 27,
-      h25: 286,
-      co2: 566,
-      luminance: 4,
-    },
-    {
-      id: 13,
-      timestamp: "7/26/21 5:00",
-      space_or_floor: "WMB#03",
-      device: "Elevator Lobby",
-      temperature: 25,
-      humidity: 20,
-      h25: 239,
-      co2: 567,
-      luminance: 10,
-    },
-    {
-      id: 14,
-      timestamp: "7/27/21 5:00",
-      space_or_floor: "WMB#03",
-      device: "Trash Room",
-      temperature: 30,
-      humidity: 21,
-      h25: 297,
-      co2: 591,
-      luminance: 10,
-    },
-    {
-      id: 15,
-      timestamp: "7/28/21 5:00",
-      space_or_floor: "WMB#03",
-      device: "Bathrooms",
-      temperature: 30,
-      humidity: 24,
-      h25: 215,
-      co2: 535,
-      luminance: 10,
-    },
-    {
-      id: 16,
-      timestamp: "7/29/21 5:00",
-      space_or_floor: "WMB#03",
-      device: "Offices",
-      temperature: 34,
-      humidity: 26,
-      h25: 217,
-      co2: 600,
-      luminance: 7,
-    },
-    {
-      id: 17,
-      timestamp: "7/30/21 5:00",
-      space_or_floor: "WMB#03",
-      device: "Elevator Lobby",
-      temperature: 32,
-      humidity: 29,
-      h25: 218,
-      co2: 576,
-      luminance: 4,
-    },
-    {
-      id: 18,
-      timestamp: "7/31/21 5:00",
-      space_or_floor: "WMB#03",
-      device: "Trash Room",
-      temperature: 28,
-      humidity: 27,
-      h25: 286,
-      co2: 579,
-      luminance: 6,
-    },
-    {
-      id: 19,
-      timestamp: "8/1/21 5:00",
-      space_or_floor: "WMB#03",
-      device: "Bathrooms",
-      temperature: 34,
-      humidity: 22,
-      h25: 274,
-      co2: 540,
-      luminance: 10,
-    },
-  ],
-  "critical-alarms": [
-    {
-      id: 1,
-      timestamp: "7/14/21 5:00",
-      equipment: "Chiller #12",
-      time_elapsed: "3:00",
-      condition: "High Temperature",
-      risk: "Can Fall, action Required",
-    },
-    {
-      id: 2,
-      timestamp: "7/15/21 5:00",
-      equipment: "Condenser Pump",
-      time_elapsed: "4:00",
-      condition: "Motor Failure",
-      risk: "Motor Failure",
-    },
-    {
-      id: 3,
-      timestamp: "7/16/21 5:00",
-      equipment: "CNC #1",
-      time_elapsed: "5:00",
-      condition: "Motor Failure",
-      risk: "Motor Failure",
-    },
-    {
-      id: 4,
-      timestamp: "7/17/21 5:00",
-      equipment: "Chiller #13",
-      time_elapsed: "6:00",
-      condition: "High Temperature",
-      risk: "Ventilation Failure",
-    },
-    {
-      id: 5,
-      timestamp: "7/18/21 5:00",
-      equipment: "Condenser Pump",
-      time_elapsed: "7:00",
-      condition: "Motor Failure",
-      risk: "Can Fall, action Required",
-    },
-    {
-      id: 6,
-      timestamp: "7/19/21 5:00",
-      equipment: "CNC #2",
-      time_elapsed: "8:00",
-      condition: "Motor Failure",
-      risk: "Motor Failure",
-    },
-    {
-      id: 7,
-      timestamp: "7/20/21 5:00",
-      equipment: "Chiller #14",
-      time_elapsed: "9:00",
-      condition: "High Temperature",
-      risk: "Motor Failure",
-    },
-    {
-      id: 8,
-      timestamp: "7/21/21 5:00",
-      equipment: "Condenser Pump",
-      time_elapsed: "10:00",
-      condition: "Motor Failure",
-      risk: "Ventilation Failure",
-    },
-    {
-      id: 9,
-      timestamp: "7/22/21 5:00",
-      equipment: "CNC #3",
-      time_elapsed: "11:00",
-      condition: "Motor Failure",
-      risk: "Can Fall, action Required",
-    },
-    {
-      id: 10,
-      timestamp: "7/23/21 5:00",
-      equipment: "Chiller #15",
-      time_elapsed: "12:00",
-      condition: "High Temperature",
-      risk: "Motor Failure",
-    },
-    {
-      id: 11,
-      timestamp: "7/24/21 5:00",
-      equipment: "Condenser Pump",
-      time_elapsed: "13:00",
-      condition: "Motor Failure",
-      risk: "Motor Failure",
-    },
-    {
-      id: 12,
-      timestamp: "7/25/21 5:00",
-      equipment: "CNC #4",
-      time_elapsed: "14:00",
-      condition: "Motor Failure",
-      risk: "Ventilation Failure",
-    },
-    {
-      id: 13,
-      timestamp: "7/26/21 5:00",
-      equipment: "Chiller #16",
-      time_elapsed: "15:00",
-      condition: "High Temperature",
-      risk: "Can Fall, action Required",
-    },
-    {
-      id: 14,
-      timestamp: "7/27/21 5:00",
-      equipment: "Condenser Pump",
-      time_elapsed: "16:00",
-      condition: "Motor Failure",
-      risk: "Motor Failure",
-    },
-    {
-      id: 15,
-      timestamp: "7/28/21 5:00",
-      equipment: "CNC #5",
-      time_elapsed: "17:00",
-      condition: "Motor Failure",
-      risk: "Motor Failure",
-    },
-    {
-      id: 16,
-      timestamp: "7/29/21 5:00",
-      equipment: "Chiller #17",
-      time_elapsed: "18:00",
-      condition: "High Temperature",
-      risk: "Ventilation Failure",
-    },
-    {
-      id: 17,
-      timestamp: "7/30/21 5:00",
-      equipment: "Condenser Pump",
-      time_elapsed: "19:00",
-      condition: "Motor Failure",
-      risk: "Can Fall, action Required",
-    },
-    {
-      id: 18,
-      timestamp: "7/31/21 5:00",
-      equipment: "CNC #6",
-      time_elapsed: "20:00",
-      condition: "Motor Failure",
-      risk: "Motor Failure",
-    },
-    {
-      id: 19,
-      timestamp: "8/1/21 5:00",
-      equipment: "Chiller #18",
-      time_elapsed: "21:00",
-      condition: "High Temperature",
-      risk: "Motor Failure",
-    },
-  ],
-  "commodity-transactions": [
-    {
-      id: 1,
-      timestamp: "7/14/21 5:00",
-      vendor: "MK Pvt Ldt",
-      tanker_no: "TN28T203",
-      block: "A",
-      commodity: "Water",
-      status: "Tanker In",
-      timings: "35:45:00",
-    },
-    {
-      id: 2,
-      timestamp: "7/15/21 5:00",
-      vendor: "GH Pvt Ldt",
-      tanker_no: "TN28T204",
-      block: "B",
-      commodity: "Oil",
-      status: "Tanker Out",
-      timings: "36:45:00",
-    },
-    {
-      id: 3,
-      timestamp: "7/16/21 5:00",
-      vendor: "SM Pvt Ldt",
-      tanker_no: "TN28T205",
-      block: "C",
-      commodity: "Sewage",
-      status: "Tanker In",
-      timings: "37:45:00",
-    },
-    {
-      id: 4,
-      timestamp: "7/17/21 5:00",
-      vendor: "44 Pvt Ldt",
-      tanker_no: "TN28T206",
-      block: "D",
-      commodity: "Water",
-      status: "Tanker Out",
-      timings: "38:45:00",
-    },
-    {
-      id: 5,
-      timestamp: "7/18/21 5:00",
-      vendor: "MK Pvt Ldt",
-      tanker_no: "TN28T207",
-      block: "A",
-      commodity: "Water",
-      status: "Tanker In",
-      timings: "39:45:00",
-    },
-    {
-      id: 6,
-      timestamp: "7/19/21 5:00",
-      vendor: "GH Pvt Ldt",
-      tanker_no: "TN28T208",
-      block: "B",
-      commodity: "Oil",
-      status: "Tanker Out",
-      timings: "40:45:00",
-    },
-    {
-      id: 7,
-      timestamp: "7/20/21 5:00",
-      vendor: "SM Pvt Ldt",
-      tanker_no: "TN28T209",
-      block: "C",
-      commodity: "Sewage",
-      status: "Tanker In",
-      timings: "41:45:00",
-    },
-    {
-      id: 8,
-      timestamp: "7/21/21 5:00",
-      vendor: "45 Pvt Ldt",
-      tanker_no: "TN28T210",
-      block: "D",
-      commodity: "Water",
-      status: "Tanker Out",
-      timings: "42:45:00",
-    },
-    {
-      id: 9,
-      timestamp: "7/22/21 5:00",
-      vendor: "MK Pvt Ldt",
-      tanker_no: "TN28T211",
-      block: "A",
-      commodity: "Water",
-      status: "Tanker In",
-      timings: "43:45:00",
-    },
-    {
-      id: 10,
-      timestamp: "7/23/21 5:00",
-      vendor: "GH Pvt Ldt",
-      tanker_no: "TN28T212",
-      block: "B",
-      commodity: "Oil",
-      status: "Tanker Out",
-      timings: "44:45:00",
-    },
-    {
-      id: 11,
-      timestamp: "7/24/21 5:00",
-      vendor: "SM Pvt Ldt",
-      tanker_no: "TN28T213",
-      block: "C",
-      commodity: "Sewage",
-      status: "Tanker In",
-      timings: "45:45:00",
-    },
-    {
-      id: 12,
-      timestamp: "7/25/21 5:00",
-      vendor: "46 Pvt Ldt",
-      tanker_no: "TN28T214",
-      block: "D",
-      commodity: "Water",
-      status: "Tanker Out",
-      timings: "46:45:00",
-    },
-    {
-      id: 13,
-      timestamp: "7/26/21 5:00",
-      vendor: "MK Pvt Ldt",
-      tanker_no: "TN28T215",
-      block: "A",
-      commodity: "Water",
-      status: "Tanker In",
-      timings: "47:45:00",
-    },
-    {
-      id: 14,
-      timestamp: "7/27/21 5:00",
-      vendor: "GH Pvt Ldt",
-      tanker_no: "TN28T216",
-      block: "B",
-      commodity: "Oil",
-      status: "Tanker Out",
-      timings: "48:45:00",
-    },
-    {
-      id: 15,
-      timestamp: "7/28/21 5:00",
-      vendor: "SM Pvt Ldt",
-      tanker_no: "TN28T217",
-      block: "C",
-      commodity: "Sewage",
-      status: "Tanker In",
-      timings: "49:45:00",
-    },
-    {
-      id: 16,
-      timestamp: "7/29/21 5:00",
-      vendor: "47 Pvt Ldt",
-      tanker_no: "TN28T218",
-      block: "D",
-      commodity: "Water",
-      status: "Tanker Out",
-      timings: "50:45:00",
-    },
-    {
-      id: 17,
-      timestamp: "7/30/21 5:00",
-      vendor: "MK Pvt Ldt",
-      tanker_no: "TN28T219",
-      block: "A",
-      commodity: "Water",
-      status: "Tanker In",
-      timings: "51:45:00",
-    },
-    {
-      id: 18,
-      timestamp: "7/31/21 5:00",
-      vendor: "GH Pvt Ldt",
-      tanker_no: "TN28T220",
-      block: "B",
-      commodity: "Oil",
-      status: "Tanker Out",
-      timings: "52:45:00",
-    },
-    {
-      id: 19,
-      timestamp: "8/1/21 5:00",
-      vendor: "SM Pvt Ldt",
-      tanker_no: "TN28T221",
-      block: "C",
-      commodity: "Sewage",
-      status: "Tanker In",
-      timings: "53:45:00",
-    },
-  ],
-};
+import engineeringData from "./engineering_data";
+import assetData from "./assets_data";
+import assetDetailData from "./assets_detail_data";
+import workplaceData from "./workplace_data";
+import experienceData from "./experience_data";
 
 mock.onGet("/power-consumtions").reply((request) => {
-  return [200, data["power-consumtions"]];
+  return [200, engineeringData["power-consumtions"]];
 });
 
 mock.onGet("/powers").reply((request) => {
-  return [200, data["powers"]];
+  return [200, engineeringData["powers"]];
 });
 
 mock.onGet("/air-quality").reply((request) => {
-  return [200, data["air-quality"]];
+  return [200, engineeringData["air-quality"]];
 });
 
 mock.onGet("/critical-alarms").reply((request) => {
-  return [200, data["critical-alarms"]];
+  return [200, engineeringData["critical-alarms"]];
 });
 
 mock.onGet("/commodity-transactions").reply((request) => {
-  return [200, data["commodity-transactions"]];
+  return [200, engineeringData["commodity-transactions"]];
+});
+
+mock.onGet("/assets-equipments").reply((request) => {
+  return [200, assetData.assets_equipments];
+});
+
+mock.onGet("/work-order-schedules").reply((request) => {
+  return [200, assetData.work_order_schedules];
+});
+
+mock.onGet("/tickets").reply((request) => {
+  return [200, assetData.tickets];
+});
+
+mock.onGet("/preventive-maintenances").reply((request) => {
+  return [200, assetData.preventive_maintenances];
+});
+
+mock.onGet("/external-visitors").reply((request) => {
+  return [200, assetData.external_visitors];
+});
+
+mock.onGet("/visitors").reply((request) => {
+  return [200, assetData.visitors];
+});
+
+mock.onGet("/inventory").reply((request) => {
+  return [200, assetData.inventory];
+});
+
+mock.onGet("/building-compliances").reply((request) => {
+  return [200, assetData.building_compliances];
+});
+
+mock.onGet("/assets-details").reply((request) => {
+  return [200, assetDetailData.assets_details];
+});
+
+mock.onGet("/work-orders").reply((request) => {
+  return [200, assetDetailData.work_orders];
+});
+
+mock.onGet("/tp-engineerings").reply((request) => {
+  return [200, assetDetailData.TP_engineering_dashboard];
+});
+
+mock.onGet("/covid").reply((request) => {
+  return [200, workplaceData.covid];
+});
+
+mock.onGet("/meeting-room-occupancies").reply((request) => {
+  return [200, workplaceData.meeting_room_occupancy];
+});
+
+mock.onGet("/attendance-management").reply((request) => {
+  return [200, workplaceData.attendance_management];
+});
+
+mock.onGet("/critical-alerts").reply((request) => {
+  return [200, workplaceData.critical_alerts];
+});
+
+mock.onGet("/employees").reply((request) => {
+  return [200, workplaceData.employees];
+});
+
+mock.onGet("/washroom-availability").reply((request) => {
+  return [200, experienceData.washroom_availalbility];
+});
+
+mock.onGet("/smart-washroom").reply((request) => {
+  return [200, experienceData.smart_washroom];
+});
+
+mock.onGet("/air-quality/conference-room").reply((request) => {
+  return [200, experienceData.conference_room];
+});
+
+mock.onGet("/air-quality/meeting-room-1").reply((request) => {
+  return [200, experienceData.meeting_room_1];
+});
+
+mock.onGet("/air-quality/meeting-room-2").reply((request) => {
+  return [200, experienceData.meeting_room_2];
+});
+
+mock.onGet("/air-quality/meeting-room-3").reply((request) => {
+  return [200, experienceData.meeting_room_3];
 });
