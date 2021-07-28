@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./dashboard.scss";
 import EngineeringDashboard from "./EngineeringDashboard/index";
-import AssetsManagementDashboard from "./AssetsManagementDashboard";
+import AssetsManagementDashboard from "./AssetsManagementDashboard/index";
 import AssetsDashboard from "./AssetsDashboard";
 import WorkOrdersDashboard from "./WorkOrdersDashboard";
 import TPEngineeringDashboard from "./TPEngineeringDashboard";
-import WorkplaceManagement from "./WorkplaceManagement";
-import ExperienceDashboard from "./ExperienceDashboard";
+import WorkplaceManagement from "./WorkplaceManagement/index";
+import ExperienceDashboard from "./ExperienceDashboard/index";
 
 const Dashboards = () => {
   const [activeIndex, setActiveIndex] = useState(0);
