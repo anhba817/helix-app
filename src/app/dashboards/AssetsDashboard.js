@@ -130,7 +130,7 @@ const AssetsDashboard = ({ activeIndex, setActiveIndex }) => {
                     className="mr-2"
                     style={{marginTop: -8}}
                   />
-                  Assets Management Dashboard
+                  Assets Dashboard
                 </h2>
               </Col>
               <Col md={{ size: 4, offset: 1 }} className="mt-3">

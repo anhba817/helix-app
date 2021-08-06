@@ -54,7 +54,7 @@ const PowerChart = () => {
 
   return (
     <div className="mt-3 px-2">
-      {loading ? <Spin /> : <Line data={powerData} options={options} />}
+      {loading ? <Spin /> : <Line data={powerData} options={options} height={60} />}
     </div>
   );
 };

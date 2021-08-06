@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import { Line } from '@reactchartjs/react-chart.js';
+import { Line } from 'react-chartjs-2';
 import Select from 'react-select';
 import {
   Row, Col, Button, Input, Label, Card, CardBody,

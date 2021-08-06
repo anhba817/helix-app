@@ -6,18 +6,7 @@ import DoughnutChart from "./DoughnutChart";
 import HalfDonutChart from "../../core/components/HalfDonutChart/index";
 import "../dashboard.scss";
 
-const ConferenceRoom = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    apiClient
-      .get("/air-quality/conference-room")
-      .then((response) => {
-        if (response) {
-          setData(response.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+const ConferenceRoom = ({data}) => {
 
   const avgTemperature =
     data.reduce((a, b) => a + b.temperature, 0) / data.length;

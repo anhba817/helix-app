@@ -273,7 +273,7 @@ const AssetsManagementDashboard = ({ activeIndex, setActiveIndex }) => {
           <Col md="5">
             <Card className="border-0">
               <CardHeader className="border-0 statistic-card-header">
-                External Visitors
+                External Vendors
               </CardHeader>
               <CardBody>
                 <ExternalVisitorCards

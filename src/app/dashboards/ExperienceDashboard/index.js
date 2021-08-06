@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import apiClient from "../../util/axios";
 import { Row, Col, Card, CardBody, CardHeader } from "reactstrap";
-import { Button, Table } from "antd";
+import { Button, Table, Select } from "antd";
 import { Pie } from "react-chartjs-2";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
+import moment from "moment";
+import DateSliderWithPicker from "../../core/components/DateSliderWithPicker";
 import ConferenceRoom from "./ConferenceRoom";
 import MeetingRoom1 from "./MeetingRoom1";
 import MeetingRoom2 from "./MeetingRoom2";
@@ -14,9 +16,24 @@ import femaleIcon from "../../images/icons/female.svg";
 import disabledManIcon from "../../images/icons/disabledMan.svg";
 import "../dashboard.scss";
 
+const dateFormat = "MM/DD/YYYY";
+
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+
 const ExperienceDashboard = ({ activeIndex, setActiveIndex }) => {
   const [washroomAvaiData, setWashroomAvaiData] = useState([]);
   const [smartWashroomData, setSmartWashroomData] = useState([]);
+  const [conferenceRoomData, setConferenceRoomData] = useState([]);
+  const [meetingRoom1Data, setMeetingRoom1Data] = useState([]);
+  const [meetingRoom2Data, setMeetingRoom2Data] = useState([]);
+  const [meetingRoom3Data, setMeetingRoom3Data] = useState([]);
+  const [dateRange, setDateRange] = useState([]);
+  const [filter, setFilter] = useState("site");
+  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     apiClient
       .get("/washroom-availability")
@@ -34,7 +51,74 @@ const ExperienceDashboard = ({ activeIndex, setActiveIndex }) => {
         }
       })
       .catch((err) => console.log(err));
+    apiClient
+      .get("/air-quality/conference-room")
+      .then((response) => {
+        if (response) {
+          setConferenceRoomData(response.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    apiClient
+      .get("/air-quality/meeting-room-1")
+      .then((response) => {
+        if (response) {
+          setMeetingRoom1Data(response.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    apiClient
+      .get("/air-quality/meeting-room-2")
+      .then((response) => {
+        if (response) {
+          setMeetingRoom2Data(response.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    apiClient
+      .get("/air-quality/meeting-room-3")
+      .then((response) => {
+        if (response) {
+          setMeetingRoom3Data(response.data);
+        }
+      })
+      .catch((err) => console.log(err));
+    setLoading(false);
   }, []);
+
+  const onChangeDateRange = (values) => {
+    setDateRange(values);
+  };
+
+  const allData = [
+    ...washroomAvaiData,
+    ...smartWashroomData,
+    ...conferenceRoomData,
+    ...meetingRoom1Data,
+    ...meetingRoom2Data,
+    ...meetingRoom3Data,
+  ].map((a) => a.date);
+  const minDate = allData.reduce(
+    (a, b) => (moment(a, dateFormat) > moment(b, dateFormat) ? b : a),
+    "01/01/2021"
+  );
+
+  const maxDate = allData.reduce(
+    (a, b) => (moment(a, dateFormat) < moment(b, dateFormat) ? b : a),
+    "01/01/2021"
+  );
+
+  const options = [
+    ...washroomAvaiData,
+    ...smartWashroomData,
+    ...conferenceRoomData,
+    ...meetingRoom1Data,
+    ...meetingRoom2Data,
+    ...meetingRoom3Data,
+  ]
+    .map((item) => (filter in item ? item[filter] : null))
+    .filter((it) => it)
+    .filter(onlyUnique);
 
   const columns = [
     {
@@ -83,14 +167,82 @@ const ExperienceDashboard = ({ activeIndex, setActiveIndex }) => {
     },
   ];
 
-  const femaleWashroom = washroomAvaiData.filter(
+  const filteredWashroomAvaiData = washroomAvaiData
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
+  const filteredSmartWashroomAvaiData = smartWashroomData
+    .filter(
+      (item) =>
+        moment(item.date, "MM/DD/YYYY hh:mm A") >=
+          moment(dateRange[0], dateFormat) &&
+        moment(item.date, "MM/DD/YYYY hh:mm A") <=
+          moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
+  const filteredConferenceRoomData = conferenceRoomData
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
+  const filteredMeetingRoom1Data = meetingRoom1Data
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
+  const filteredMeetingRoom2Data = meetingRoom2Data
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
+  const filteredMeetingRoom3Data = smartWashroomData
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
+  const femaleWashroom = filteredWashroomAvaiData.filter(
     (item) => item.washroom === "Female"
   );
   const femaleWorking =
     (femaleWashroom.filter((item) => item.availability === "Working").length /
       femaleWashroom.length) *
     100;
-  const maleWashroom = washroomAvaiData.filter(
+  const maleWashroom = filteredWashroomAvaiData.filter(
     (item) => item.washroom === "Male"
   );
   const maleWorking =
@@ -98,7 +250,7 @@ const ExperienceDashboard = ({ activeIndex, setActiveIndex }) => {
       maleWashroom.length) *
     100;
 
-  const assistedChangeRoom = washroomAvaiData.filter(
+  const assistedChangeRoom = filteredWashroomAvaiData.filter(
     (item) => item.washroom === "Assisted Change"
   );
   const assistedChangeWorking =
@@ -112,18 +264,51 @@ const ExperienceDashboard = ({ activeIndex, setActiveIndex }) => {
       <CardBody>
         <Row sm="12">
           <Col className="m-2">
-            <Row className="d-flex justify-content-between align-items-center">
-              <h2 className="text-mandy font-weight-bold">
-                <img
-                  src={tileIcon}
-                  width="50"
-                  height="50"
-                  className="mr-2"
-                  style={{ marginTop: -8 }}
-                />
-                Experience Dashboard
-              </h2>
-              <div>
+            <Row className="position-relative">
+              <Col md="6">
+                <h2 className="text-mandy font-weight-bold">
+                  <img
+                    src={tileIcon}
+                    width="50"
+                    height="50"
+                    className="mr-2"
+                    style={{ marginTop: -8 }}
+                  />
+                  Experience Dashboard
+                </h2>
+              </Col>
+              <Col md="4">
+                <div className="d-flex mt-3">
+                  <div className="d-flex flex-column mr-3">
+                    <Select
+                      options={[{ value: "site", label: "Site" }]}
+                      value={filter}
+                      onSelect={(value) => setFilter(value)}
+                      style={{ minWidth: 100 }}
+                    />
+                    <Select
+                      options={["All", ...options].map((vl) => ({
+                        value: vl,
+                        label: vl,
+                      }))}
+                      value={selectedFilter}
+                      onSelect={(value) => setSelectedFilter(value)}
+                      style={{ minWidth: 100 }}
+                    />
+                  </div>
+                  {!loading && (
+                    <DateSliderWithPicker
+                      start={minDate}
+                      end={maxDate}
+                      onChange={onChangeDateRange}
+                    />
+                  )}
+                </div>
+              </Col>
+              <div
+                className="d-flex justify-content-end"
+                style={{ position: "absolute", top: 16, right: 16 }}
+              >
                 <Button
                   className="border-0"
                   size="large"
@@ -290,7 +475,7 @@ const ExperienceDashboard = ({ activeIndex, setActiveIndex }) => {
                 <Col>
                   <Table
                     bordered
-                    dataSource={smartWashroomData}
+                    dataSource={filteredSmartWashroomAvaiData}
                     rowKey="id"
                     columns={columns}
                     pagination={false}
@@ -305,10 +490,10 @@ const ExperienceDashboard = ({ activeIndex, setActiveIndex }) => {
               <CardHeader className="border-0 statistic-card-header pb-0">
                 Indoor Air Quality
               </CardHeader>
-              <ConferenceRoom />
-              <MeetingRoom1 />
-              <MeetingRoom2 />
-              <MeetingRoom3 />
+              <ConferenceRoom data={filteredConferenceRoomData} />
+              <MeetingRoom1 data={filteredMeetingRoom1Data} />
+              <MeetingRoom2 data={filteredMeetingRoom2Data} />
+              <MeetingRoom3 data={filteredMeetingRoom3Data} />
             </Card>
           </Col>
         </Row>

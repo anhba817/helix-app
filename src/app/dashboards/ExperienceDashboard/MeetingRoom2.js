@@ -1,23 +1,10 @@
-import React, { useState, useEffect } from "react";
-import apiClient from "../../util/axios";
-import { Card, CardBody, CardHeader } from "reactstrap";
+import React from "react";
+import { Card, CardHeader } from "reactstrap";
 import { Row, Col } from "antd";
 import DoughnutChart from "./DoughnutChart";
-import HalfDonutChart from "../../core/components/HalfDonutChart/index";
 import "../dashboard.scss";
 
-const MeetingRoom2 = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    apiClient
-      .get("/air-quality/meeting-room-2")
-      .then((response) => {
-        if (response) {
-          setData(response.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+const MeetingRoom2 = ({data}) => {
 
   const avgTemperature =
     data.reduce((a, b) => a + b.temperature, 0) / data.length;

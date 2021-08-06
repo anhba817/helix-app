@@ -98,6 +98,7 @@ const data = {
   ],
   smart_washroom: [
     {
+      id: 1,
       date: "01/01/2021 05:00 AM",
       building: "Building 1",
       block: "A",
@@ -108,6 +109,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 2,
       date: "01/02/2021 05:00 AM",
       building: "Building 2",
       block: "B",
@@ -118,6 +120,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 3,
       date: "01/03/2021 05:00 AM",
       building: "Building 3",
       block: "C",
@@ -128,6 +131,7 @@ const data = {
       message: "No Data reception",
     },
     {
+      id: 4,
       date: "01/04/2021 05:00 AM",
       building: "Building 1",
       block: "D",
@@ -138,6 +142,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 5,
       date: "01/05/2021 05:00 AM",
       building: "Building 2",
       block: "A",
@@ -148,6 +153,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 6,
       date: "01/06/2021 05:00 AM",
       building: "Building 3",
       block: "B",
@@ -158,6 +164,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 7,
       date: "01/07/2021 05:00 AM",
       building: "Building 1",
       block: "C",
@@ -168,6 +175,7 @@ const data = {
       message: "No Data reception",
     },
     {
+      id: 8,
       date: "01/08/2021 05:00 AM",
       building: "Building 2",
       block: "D",
@@ -178,6 +186,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 9,
       date: "01/09/2021 05:00 AM",
       building: "Building 3",
       block: "A",
@@ -188,6 +197,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 10,
       date: "01/10/2021 05:00 AM",
       building: "Building 1",
       block: "B",
@@ -198,6 +208,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 11,
       date: "01/11/2021 05:00 AM",
       building: "Building 2",
       block: "C",
@@ -208,6 +219,7 @@ const data = {
       message: "No Data reception",
     },
     {
+      id: 12,
       date: "01/12/2021 05:00 AM",
       building: "Building 3",
       block: "D",
@@ -218,6 +230,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 13,
       date: "01/13/2021 05:00 AM",
       building: "Building 1",
       block: "A",
@@ -228,6 +241,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 14,
       date: "01/14/2021 05:00 AM",
       building: "Building 2",
       block: "B",
@@ -238,6 +252,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 15,
       date: "01/15/2021 05:00 AM",
       building: "Building 3",
       block: "C",
@@ -248,6 +263,7 @@ const data = {
       message: "No Data reception",
     },
     {
+      id: 16,
       date: "01/16/2021 05:00 AM",
       building: "Building 1",
       block: "D",
@@ -258,6 +274,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 17,
       date: "01/17/2021 05:00 AM",
       building: "Building 2",
       block: "A",
@@ -268,6 +285,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 18,
       date: "01/18/2021 05:00 AM",
       building: "Building 3",
       block: "B",
@@ -278,6 +296,7 @@ const data = {
       message: "Cleaning task initiated",
     },
     {
+      id: 19,
       date: "01/19/2021 05:00 AM",
       building: "Building 1",
       block: "C",

@@ -36,7 +36,8 @@ const WorkplaceManagement = ({ activeIndex, setActiveIndex }) => {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [filter, setFilter] = useState("date");
+  const [filter, setFilter] = useState("site");
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
   const onChangeDateRange = (values) => {
     setDateRange(values);
@@ -105,11 +106,28 @@ const WorkplaceManagement = ({ activeIndex, setActiveIndex }) => {
     "01/01/2021"
   );
 
-  const filteredCovidData = covidData.filter(
-    (item) =>
-      moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
-      moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
-  );
+  const options = [
+    ...covidData,
+    ...meetingRoomData,
+    ...attendanceData,
+    ...criticalAlerts,
+    ...employees,
+  ]
+    .map((item) => (filter in item ? item[filter] : null))
+    .filter((it) => it)
+    .filter(onlyUnique);
+
+  const filteredCovidData = covidData
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
 
   const activeCovidCases = filteredCovidData.filter(
     (item) => item.status === "Active"
@@ -123,11 +141,17 @@ const WorkplaceManagement = ({ activeIndex, setActiveIndex }) => {
     (item) => item.status === "Recovered"
   ).length;
 
-  const filteredMeetingRoomData = meetingRoomData.filter(
-    (item) =>
-      moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
-      moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
-  );
+  const filteredMeetingRoomData = meetingRoomData
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
 
   const meetingRoomOccupancy =
     filteredMeetingRoomData.filter((item) => item.status === "Occupied")
@@ -142,19 +166,36 @@ const WorkplaceManagement = ({ activeIndex, setActiveIndex }) => {
       0
     ) / filteredMeetingRoomData.length;
 
-  const reportedIssues = criticalAlerts
+  const filteredAlerts = criticalAlerts
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
+  const reportedIssues = filteredAlerts
     .map((item) => item.reported_issue)
     .filter(onlyUnique);
   const issueTableData = reportedIssues.map((issue) => ({
     issue,
-    count: criticalAlerts.filter((a) => a.reported_issue === issue).length,
+    count: filteredAlerts.filter((a) => a.reported_issue === issue).length,
   }));
 
-  const filteredEmployees = employees.filter(
-    (item) =>
-      moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
-      moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
-  );
+  const filteredEmployees = employees
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
 
   const total_working_hrs = filteredEmployees.reduce(
     (a, b) => a + b.working_hrs,
@@ -173,6 +214,18 @@ const WorkplaceManagement = ({ activeIndex, setActiveIndex }) => {
     ) /
     filteredEmployees.length /
     100;
+
+  const filteredAttendanceData = attendanceData
+    .filter(
+      (item) =>
+        moment(item.date, dateFormat) >= moment(dateRange[0], dateFormat) &&
+        moment(item.date, dateFormat) <= moment(dateRange[1], dateFormat)
+    )
+    .filter((item) =>
+      filter in item && selectedFilter !== "All"
+        ? item[filter] === selectedFilter
+        : true
+    );
 
   const issueColumns = [
     {
@@ -245,15 +298,25 @@ const WorkplaceManagement = ({ activeIndex, setActiveIndex }) => {
                   Workplace Management
                 </h2>
               </Col>
-              <Col md={{ value: 2, offset: 2 }}>
-                <div className="d-flex flex-column mt-3">
-                  <Select
-                    options={[{ value: "date", label: "Date" }]}
-                    value={filter}
-                    bordered={false}
-                    onSelect={(value) => setFilter(value)}
-                    style={{ minWidth: 100 }}
-                  />
+              <Col md="4">
+                <div className="d-flex mt-3">
+                  <div className="d-flex flex-column mr-3">
+                    <Select
+                      options={[{ value: "site", label: "Site" }]}
+                      value={filter}
+                      onSelect={(value) => setFilter(value)}
+                      style={{ minWidth: 100 }}
+                    />
+                    <Select
+                      options={["All", ...options].map((vl) => ({
+                        value: vl,
+                        label: vl,
+                      }))}
+                      value={selectedFilter}
+                      onSelect={(value) => setSelectedFilter(value)}
+                      style={{ minWidth: 100 }}
+                    />
+                  </div>
                   {!loading && (
                     <DateSliderWithPicker
                       start={minDate}
@@ -372,7 +435,7 @@ const WorkplaceManagement = ({ activeIndex, setActiveIndex }) => {
           <Col md="6">
             <Card className="border-0">
               <CardHeader className="border-0 statistic-card-header">
-                Attendance Management
+                Critical Alerts
               </CardHeader>
               <Table
                 bordered
@@ -394,7 +457,7 @@ const WorkplaceManagement = ({ activeIndex, setActiveIndex }) => {
               </CardHeader>
               <Table
                 bordered
-                dataSource={attendanceData}
+                dataSource={filteredAttendanceData}
                 rowKey="id"
                 columns={attendanceColumns}
                 pagination={false}
